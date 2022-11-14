@@ -1,5 +1,9 @@
 <h3>スケジュール一覧</h3>
 
+<% if flash[:notice] %>
+  <p class="notice"><%= flash[:notice] %></p>
+<% end %>
+
 <table>
   <thead>
     <tr>
@@ -51,9 +55,19 @@
           <%= link_to "確認", post_path(post.id) %>
         </td>
         
+        <td>
+          <!--ユーザー編集ページへのリンクを作成｡
+              edit_post_path(post.id)
+              =>
+              posts/:id(idにはpost.id が入る)/edit -->
+          <%= link_to "編集", edit_post_path(post.id) %>
+        </td>
+        
         
         <td>deleateへのリンク</td>
-        <td>editへのリンク</td>
+        
+        
+        
       </tr>
     <% end %>
   </tbody>
