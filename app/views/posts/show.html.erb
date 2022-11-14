@@ -33,6 +33,8 @@
 
 <div>
   <ul>
-    <li><%= link_to "ユーザー一覧ページに戻る", posts_path %></li>
+    <li><%= link_to "スケジュール一覧ページに戻る", posts_path %></li>
+    <li><%= link_to "スケジュールを編集する", edit_post_path(@post.id) %></li>
+    <li><%= link_to "スケジュールを削除する", post_path(@post.id), method: :delete, data: { confirm: "本当に削除しますか?" } %></li>
   </ul>
 </div>

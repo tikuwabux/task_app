@@ -105,6 +105,11 @@ class PostsController < ApplicationController
   end 
   
   def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    flash[:notice] = "IDが｢#{@post.id}｣のスケジュールを削除しました"
+    redirect_to posts_path
   end 
+  
   
 end
