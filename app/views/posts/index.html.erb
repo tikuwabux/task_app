@@ -48,7 +48,7 @@
         <td><%= post.updated_at.to_s(:datetime_jp) %></td>
       
         <td>
-          <!--ユーザー詳細ページへのリンクを作成｡
+          <!--スケジュール詳細ページへのリンクを作成｡
               post_path(post.id)
               =>
               posts/show/:id(idにはpost.id が入る)-->
@@ -56,7 +56,7 @@
         </td>
         
         <td>
-          <!--ユーザー編集ページへのリンクを作成｡
+          <!--スケジュール編集ページへのリンクを作成｡
               edit_post_path(post.id)
               =>
               posts/:id(idにはpost.id が入る)/edit -->
@@ -64,7 +64,17 @@
         </td>
         
         
-        <td>deleateへのリンク</td>
+        <td>
+          <!--スケジュール削除リンクを作成-->
+          
+          <!--HTTPメソッドが､getじゃないので､第三引数のメソッド指定を省略できないことに注意｡-->
+          <!--あと今回､HTTPメソッド名は､destroyではなく､delete であることに注意｡-->
+          
+          <!--第四引数に､data { confirm: "お好みのメッセージ" }を記述することで､-->
+          <!--リンク押下時､destroyアクション実行前にアラート表示できるようになる-->
+          
+          <%= link_to "削除", post_path(post.id), method: :delete, data: { confirm: "本当に削除しますか?" } %>
+        </td>
         
         
         
