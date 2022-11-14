@@ -20,8 +20,13 @@
       <tr>
         <td><%= post.id %></td>
         <td><%= post.title %></td>
-        <td><%= post.start_date %></td>
-        <td><%= post.end_date %></td>
+        
+        <!--postからstart_dateカラム値やend_dateカラム値を取り出した後-->
+        <!--､to_s(:キー名)で /config/initializers/time_formats.rb-->
+        <!--に追加したフォーマットを指定している｡-->
+        <td><%= post.start_date.to_s(:date_jp) %></td>
+       
+        <td><%= post.end_date.to_s(:date_jp) %></td>
         
         
         <td>
@@ -33,7 +38,11 @@
           <% end %>
         </td>
         
-        <td><%= post.updated_at %></td>
+        <!--postからupdated_atカラム値を取り出した後-->
+        <!--､to_s(:キー名)で /config/initializers/time_formats.rb-->
+        <!--に追加したフォーマットを指定している｡-->
+        <td><%= post.updated_at.to_s(:datetime_jp) %></td>
+      
         <td>posts/:idへのリンク</td>
         <td>deleateへのリンク</td>
         <td>editへのリンク</td>
