@@ -1,0 +1,47 @@
+<h3>スケジュール一覧</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>タイトル</th>
+      <th>開始日</th>
+      <th>終了日</th>
+      <th>終日</th>
+      <th>スケジュール更新日時</th>
+      <th>確認</th>
+      <th>編集</th>
+      <th>削除</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.id %></td>
+        <td><%= post.title %></td>
+        <td><%= post.start_date %></td>
+        <td><%= post.end_date %></td>
+        
+        
+        <td>
+          <!--もし､post.aLL_dayがtrue､-->
+          <!--つまり､チェックボックスにチェックがついてたら､-->
+          <!--◯を表示-->
+          <% if post.all_day %>
+          ◯
+          <% end %>
+        </td>
+        
+        <td><%= post.updated_at %></td>
+        <td>posts/:idへのリンク</td>
+        <td>deleateへのリンク</td>
+        <td>editへのリンク</td>
+      </tr>
+    <% end %>
+  </tbody>
+    
+</table>
+<!-- :new_post は /posts/new を呼び出すURLヘルパーメソッド｡
+      new_post_path でもOK -->
+<p><%= link_to "スケジュール新規登録", :new_post %></p>
