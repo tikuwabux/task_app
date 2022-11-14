@@ -43,7 +43,15 @@
         <!--に追加したフォーマットを指定している｡-->
         <td><%= post.updated_at.to_s(:datetime_jp) %></td>
       
-        <td>posts/:idへのリンク</td>
+        <td>
+          <!--ユーザー詳細ページへのリンクを作成｡
+              post_path(post.id)
+              =>
+              posts/show/:id(idにはpost.id が入る)-->
+          <%= link_to "確認", post_path(post.id) %>
+        </td>
+        
+        
         <td>deleateへのリンク</td>
         <td>editへのリンク</td>
       </tr>
@@ -51,6 +59,6 @@
   </tbody>
     
 </table>
-<!-- :new_post は /posts/new を呼び出すURLヘルパーメソッド｡
-      new_post_path でもOK -->
-<p><%= link_to "スケジュール新規登録", :new_post %></p>
+<!-- new_post_path は /posts/new を呼び出すURLヘルパーメソッド｡
+      :new_post でもOK -->
+<p><%= link_to "スケジュール新規登録", new_post_path %></p>

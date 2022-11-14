@@ -64,7 +64,7 @@ class PostsController < ApplicationController
       flash[:notice] = "ユーザーを新規登録しました"
       
       # スケジュール一覧ページに飛ばす
-      redirect_to :posts
+      redirect_to posts_path
     else
       
       # 現コントローラー中のnewアクションに飛ばす
@@ -75,6 +75,12 @@ class PostsController < ApplicationController
   end 
   
   def show
+    # DBのpostsテーブル中から､idがparams[:id]である
+    # レコードを1つだけみつけだして､変数に代入
+    # なおparams[:id]とは､このアクションに誘導されたurl
+    # posts/show/:id(idにはpost.id が入る)のpost.idのことを指す｡
+    
+    @post = Post.find(params[:id])
   end 
   
   def edit
