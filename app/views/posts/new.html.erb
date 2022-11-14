@@ -2,8 +2,7 @@
 
 <!--フラッシュメッセージがあったら表示する-->
 <% if flash[:notice] %>
-<p class="notice"><%= flash[:notice] %></p>
-
+  <p class="notice"><%= flash[:notice] %></p>
 <% end %>
 
 <!--form_withとは、railsで情報を送信するためのヘルパーメソッド-->
@@ -72,7 +71,7 @@
       <!-- f.submit で送信ボタンを作成-->
       <li><%= f.submit "スケジュールを新規登録する" %></li>
       
-      <li><%= link_to "スケジュール一覧に戻る", :posts %></li>
+      <li><%= link_to "スケジュール一覧に戻る", posts_path %></li>
     </ul>
   </div>
 

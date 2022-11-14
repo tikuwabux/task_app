@@ -79,14 +79,29 @@ class PostsController < ApplicationController
     # レコードを1つだけみつけだして､変数に代入
     # なおparams[:id]とは､このアクションに誘導されたurl
     # posts/show/:id(idにはpost.id が入る)のpost.idのことを指す｡
-    
     @post = Post.find(params[:id])
   end 
   
   def edit
+    @post = Post.find(params[:id])
   end 
   
   def update 
+    @post = Post.find(params[:id])
+    
+    # createアクション時の  
+    # @post = Post.new(params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo))
+    # if @post.save
+    # の2つを一つにまとめた感じ｡updateメソッドってすごい強力
+    if @post.update(params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo))
+    
+      flash[:notice] = "IDが｢#{@post.id}｣のスケジュールを更新しました"
+
+      redirect_to posts_path
+    else
+      render "edit"
+    end
+    
   end 
   
   def destroy
