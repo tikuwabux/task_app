@@ -21,5 +21,9 @@ module TaskApp
      
     # デフォルトの協定世界時から､日本標準時に変更する
     config.time_zone = 'Tokyo'
+    
+    # gem rails-i18nを用いて､
+    # デフォルトのロケール(言語や国･地域の設定)を日本にする
+    config.i18n.default_locale = :ja
   end
 end
