@@ -61,7 +61,7 @@ class PostsController < ApplicationController
     if @post.save
        
       # フラッシュメッセージを格納(ハッシュ flash の key :notice の valueとして )
-      flash[:notice] = "スケジュールを新規登録しました"
+      flash[:notice] = "スケジュールの新規登録に成功しました"
       
       # スケジュール一覧ページに飛ばす
       redirect_to posts_path
@@ -95,10 +95,11 @@ class PostsController < ApplicationController
     # の2つを一つにまとめた感じ｡updateメソッドってすごい強力
     if @post.update(params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo))
     
-      flash[:notice] = "IDが｢#{@post.id}｣のスケジュールを更新しました"
+      flash[:notice] = "スケジュールの更新に成功しました"
 
       redirect_to posts_path
     else
+      flash[:notice] = "スケジュールの更新に失敗しました"
       render "edit"
     end
     
@@ -107,7 +108,7 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    flash[:notice] = "IDが｢#{@post.id}｣のスケジュールを削除しました"
+    flash[:notice] = "スケジュールの削除に成功しました"
     redirect_to posts_path
   end 
   

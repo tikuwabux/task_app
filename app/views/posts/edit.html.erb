@@ -9,6 +9,16 @@
 
 <h3>スケジュール編集</h3>
 
+<%# スケジュール更新失敗時のみ､赤のフラッシュメッセージを表示する%>
+<% if flash[:notice] == "スケジュールの更新に失敗しました" %>
+  <p class="notice red"><%= flash[:notice] %></p>
+<% end %>
+
+<!--エラーメッセージがあったら､表示してくれる働きをする
+    パーシャルを読み込む｡
+    同時に､インスンタンス変数を@postパーシャル中の変数objに渡す-->
+<%= render "shared/error", obj: @post %>
+
 <%= form_with model: @post, local: true do |f| %>
   <table>
     <tr>
