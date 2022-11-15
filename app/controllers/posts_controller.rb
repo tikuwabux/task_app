@@ -56,17 +56,17 @@ class PostsController < ApplicationController
     @post = Post.new(params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo))
     
     # ユーザーが指定どおりの入力をしていて､
-    # postインスタンスがDBへ保存された､
+    # postインスタンスがDBへ保存された場合､
     # つまり､postインスタンス→postレコードへの変換が成功した場合
     if @post.save
        
       # フラッシュメッセージを格納(ハッシュ flash の key :notice の valueとして )
-      flash[:notice] = "ユーザーを新規登録しました"
+      flash[:notice] = "スケジュールを新規登録しました"
       
       # スケジュール一覧ページに飛ばす
       redirect_to posts_path
     else
-      
+      flash[:notice] = "スケジュールの新規登録に失敗しました"
       # 現コントローラー中のnewアクションに飛ばす
       # newアクションはnew.html.erb(スケジュール新規作成ページ)を呼び出す｡
       # つまり､｢不備があったから､もう一回入力し直してね｣ということ｡
