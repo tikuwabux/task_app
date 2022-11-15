@@ -1,0 +1,38 @@
+
+<%
+=begin
+%>
+
+objには､このパーシャルをrenderメソッドで
+読み込む時に渡したインスタンス変数が入る｡
+例えば､今回のように､/task_app/app/views/posts/new.html.erbで
+<%= render "shared/error", obj: @post %> と記述していたら､
+objには @post が入っている｡
+
+errorsメソッドは､混沌としたエラー情報を配列の形で返してくれる｡
+例えば
+obj = Post.new  ← 中身がないPostインスタンスを格納
+obj.save => false  ←DBに保存しようとするもvalidatesに弾かれて失敗
+errorsメソッドでエラー情報を見てみると｡｡
+obj.errors =>
+#<ActiveModel::Errors:0x00007fcbd809aa50 @base=#<Post id: nil, title: nil, start_date: nil, end_date: nil, all_day: false, memo: nil, created_at: nil, updated_at: nil>, @messages={:title=>["can't be blank"], :start_date=>["can't be blank"], :end_date=>["can't be blank"]}, @details={:title=>[{:error=>:blank}], :start_date=>[{:error=>:blank}], :end_date=>[{:error=>:blank}]}> 
+
+any?メソッドは､配列などのコレクション要素に1つでも真があれば､trueを返し
+すべて偽ならfalseを返す｡rubyの場合､nilとfalseが偽で､それ以外はすべて真｡
+
+full_mesagesメソッドは､完成されたエラーメッセージを配列で返す
+例えば､先程のobj.errorsに使うと､
+obj.errors.full_messages =>
+["Title can't be blank", "Start date can't be blank", "End date can't be blank"] 
+
+<% 
+=end 
+%>
+
+<% if obj.errors.any? %>
+  <% obj.errors.full_messages.each do |message| %>
+    <ul>
+      <li><%= message %></li>
+    </ul>
+  <% end %>
+<% end %>
