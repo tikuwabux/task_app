@@ -18,11 +18,14 @@
     
     <footer>
           <%# Dateクラスにcurrentメソッド使って､現在日時取得｡to_s(:date_jp)でフォーマット指定 %>
-          <!-- &nbsp;はhtmlの特殊文字コードで半角スペースを-->
+          <!-- &nbsp;はhtmlの特殊文字コードで半角スペースを意味する-->
       <h1>現在の日付 : <%= Date.current.to_s(:date_jp) %> &nbsp;&nbsp;&nbsp;
           
           <%# @postsが存在する｡つまり､yieldに/posts/index.html.erb が代入されているときのみ%>
+          <%# 他のyieldがついてないビューファイルでは､呼び出しアクション外のインスタンス変数
+              は引き継がれず､使えないので注意｡例えば､index.erb で updateアクションの@post使うとか無理 %>
           <%if @posts %>
+          
             <%# @postsにcountメソッドを使って､レコード数を取得し､表示 %>
             スケジュール合計 : <%= @posts.count %> 
           <% end %>

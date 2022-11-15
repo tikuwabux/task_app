@@ -1,7 +1,14 @@
 <h3>スケジュール一覧</h3>
 
-<% if flash[:notice] %>
-  <p class="notice"><%= flash[:notice] %></p>
+<%# フラッシュメッセージがあれば表示する｡
+    尚､メッセージ内容で分岐させ､背景色を変える｡%>
+
+<% if flash[:notice] == "スケジュールの更新に成功しました" || flash[:notice] == "スケジュールの新規登録に成功しました" %>
+  <p class="notice green"><%= flash[:notice] %></p>
+  
+<% elsif flash[:notice] == "スケジュールの削除に成功しました" %>
+  <p class="notice red"><%= flash[:notice] %></p>
+  
 <% end %>
 
 <table>
