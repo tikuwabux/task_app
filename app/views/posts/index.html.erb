@@ -1,0 +1,96 @@
+<h3>スケジュール一覧</h3>
+
+<%# フラッシュメッセージがあれば表示する｡
+    尚､メッセージ内容で分岐させ､背景色を変える｡%>
+
+<% if flash[:notice] == "スケジュールの更新に成功しました" || flash[:notice] == "スケジュールの新規登録に成功しました" %>
+  <p class="notice green"><%= flash[:notice] %></p>
+  
+<% elsif flash[:notice] == "スケジュールの削除に成功しました" %>
+  <p class="notice red"><%= flash[:notice] %></p>
+  
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>タイトル</th>
+      <th>開始日</th>
+      <th>終了日</th>
+      <th>終日</th>
+      <th>スケジュール更新日時</th>
+      <th>確認</th>
+      <th>編集</th>
+      <th>削除</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.id %></td>
+        <td><%= post.title %></td>
+        
+        <!--postからstart_dateカラム値やend_dateカラム値を取り出した後-->
+        <!--､to_s(:キー名)で /config/initializers/time_formats.rb-->
+        <!--に追加したフォーマットを指定している｡-->
+        <td><%= post.start_date.to_s(:date_jp) %></td>
+       
+        <td><%= post.end_date.to_s(:date_jp) %></td>
+        
+        
+        <td>
+          <!--もし､post.aLL_dayがtrue､-->
+          <!--つまり､チェックボックスにチェックがついてたら､-->
+          <!--◯を表示-->
+          <% if post.all_day %>
+          ◯
+          <% end %>
+        </td>
+        
+        <!--postからupdated_atカラム値を取り出した後-->
+        <!--､to_s(:キー名)で /config/initializers/time_formats.rb-->
+        <!--に追加したフォーマットを指定している｡-->
+        <td><%= post.updated_at.to_s(:datetime_jp) %></td>
+      
+        <td>
+          <!--スケジュール詳細ページへのリンクを作成｡
+              post_path(post.id)
+              =>
+              posts/show/:id(idにはpost.id が入る)-->
+          <%= link_to "確認", post_path(post.id) %>
+        </td>
+        
+        <td>
+          <!--スケジュール編集ページへのリンクを作成｡
+              edit_post_path(post.id)
+              =>
+              posts/:id(idにはpost.id が入る)/edit -->
+          <%= link_to "編集", edit_post_path(post.id) %>
+        </td>
+        
+        
+        <td>
+          <!--スケジュール削除リンクを作成-->
+          
+          <!--HTTPメソッドが､getじゃないので､第三引数のメソッド指定を省略できないことに注意｡-->
+          <!--あと今回､HTTPメソッド名は､destroyではなく､delete であることに注意｡-->
+          
+          <!--第四引数に､data { confirm: "お好みのメッセージ" }を記述することで､-->
+          <!--リンク押下時､destroyアクション実行前にアラート表示できるようになる-->
+          
+          <%= link_to "削除", post_path(post.id), method: :delete, data: { confirm: "本当に削除しますか?" } %>
+        </td>
+        
+        
+        
+      </tr>
+    <% end %>
+  </tbody>
+    
+</table>
+<!-- new_post_path は /posts/new を呼び出すURLヘルパーメソッド｡
+      :new_post でもOK -->
+<p><%= link_to "スケジュール新規登録", new_post_path %></p>
+
