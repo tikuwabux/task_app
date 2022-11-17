@@ -53,7 +53,10 @@ class PostsController < ApplicationController
     # ハッシュのkey名は､レコードのカラム名に､
     # ハッシュのvalue値､はレコードのカラム値に対応するのでは?)
     # を作成し､インスタンス変数 @post に格納｡
-    @post = Post.new(params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo))
+   #@post = Post.new(params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo))
+    # 上をprivateメソッド post_paramsメソッドを使用して書き換え
+    # =>
+    @post = Post.new(post_params)
     
     # ユーザーが指定どおりの入力をしていて､
     # postインスタンスがDBへ保存された場合､
@@ -93,8 +96,10 @@ class PostsController < ApplicationController
     # @post = Post.new(params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo))
     # if @post.save
     # の2つを一つにまとめた感じ｡updateメソッドってすごい強力
-    if @post.update(params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo))
-    
+    #if @post.update(params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo))
+    # 上をprivateメソッド post_paramsを使用して書き換え =>
+    if @post.update(post_params)
+      
       flash[:notice] = "スケジュールの更新に成功しました"
 
       redirect_to posts_path
@@ -111,6 +116,15 @@ class PostsController < ApplicationController
     flash[:notice] = "スケジュールの削除に成功しました"
     redirect_to posts_path
   end 
+  
+  # これ以下のメソッドはprivateメソッドとする
+  private
+  
+  
+  # strong parameters でpost関連に情報量を絞った､paramsデータを取得するメソッド
+  def post_params
+    params.require(:post).permit(:title, :start_date, :end_date, :all_day, :memo)
+  end
   
   
 end
